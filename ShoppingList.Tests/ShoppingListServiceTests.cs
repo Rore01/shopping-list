@@ -288,5 +288,17 @@ public class ShoppingListServiceTests
         Assert.True(result);
 
     }
+
+    [Fact]
+    public void Delete_WithInvalidId_ShouldReturnFalse()
+    {
+        //Arrange
+        var service = new ShoppingListService();
+        var invalidId = "invalid-id";
+        //act
+        var result = service.Delete(invalidId);
+        //assert
+        Assert.False(result);
+    }
 }
 
