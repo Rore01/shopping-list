@@ -1,5 +1,6 @@
 ﻿using ShoppingList.Application.Interfaces;
 using ShoppingList.Domain.Models;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ShoppingList.Application.Services;
 
@@ -8,7 +9,7 @@ public class ShoppingListService : IShoppingListService
     private ShoppingItem[] _items;
     private int _nextIndex;
 
-    public ShoppingListService()
+    public ShoppingListService() 
     {
         // Initialize with demo data for UI demonstration
         // TODO: Students can remove or comment this out when running unit tests
@@ -30,9 +31,12 @@ public class ShoppingListService : IShoppingListService
 
     public ShoppingItem? Add(string name, int quantity, string? notes)
     {
-        // TODO: Students - Implement this method
-        // Return the created item
-        return null;
+        var shoppingitem = new ShoppingItem();
+
+        shoppingitem.Name = name;
+        shoppingitem.Quantity = quantity;
+        shoppingitem.Notes = notes;
+        return shoppingitem;
     }
 
     public ShoppingItem? Update(string id, string name, int quantity, string? notes)

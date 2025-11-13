@@ -7,7 +7,7 @@ public class ShoppingItem
     private int _quantity = 1;
 
     public string Id { get; set; } = Guid.NewGuid().ToString();
-
+    
     public string Name
     {
         get => _name;

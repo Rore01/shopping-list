@@ -47,6 +47,7 @@ namespace ShoppingList.Tests;
 /// - Add_WhenArrayFull_ShouldExpandArray
 /// - Add_AfterArrayExpansion_ShouldContinueWorking
 /// - Add_ShouldSetIsPurchasedToFalse
+
 ///
 /// Update() tests:
 /// - Update_WithValidId_ShouldUpdateAndReturnItem
@@ -95,22 +96,22 @@ namespace ShoppingList.Tests;
 /// </summary>
 public class ShoppingListServiceTests
 {
-    // TODO: Write your tests here following the TDD workflow
+    //TODO: Write your tests here following the TDD workflow
 
     // Example test structure:
-    // [Fact]
-    // public void Add_WithValidInput_ShouldReturnItem()
-    // {
-    //     // Arrange
-    //     var service = new ShoppingListService();
-    //
-    //     // Act
-    //     var item = service.Add("Milk", 2, "Lactose-free");
-    //
-    //     // Assert
-    //     Assert.NotNull(item);
-    //     Assert.Equal("Milk", item!.Name);
-    //     Assert.Equal(2, item.Quantity);
-    // }
+     [Fact]
+    public void Add_WithValidInput_ShouldReturnItem()
+    {
+        // Arrange
+        var service = new ShoppingListService();
+
+        // Act
+        var item = service.Add("Milk", 2, "Lactose-free");
+
+        // Assert
+        Assert.NotNull(item);
+        Assert.Equal("Milk", item!.Name);
+        Assert.Equal(2, item.Quantity);
+    }
 }
 
