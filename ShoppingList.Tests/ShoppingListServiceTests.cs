@@ -355,7 +355,17 @@ public class ShoppingListServiceTests
         //Assert
         Assert.Equal(items.Count, result.Count);
     }
-
+    [Fact]
+    public void Search_WithNullQuery_ShouldReturnAllItems()
+    {
+        //Arrange
+        var service = new ShoppingListService();
+        var items = service.GetAll();
+        //Act
+        var result = service.Search(null!);
+        //Assert
+        Assert.Equal(items.Count, result.Count);
+    }
 
 }
 
