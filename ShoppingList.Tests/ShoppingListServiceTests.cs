@@ -300,5 +300,21 @@ public class ShoppingListServiceTests
         //assert
         Assert.False(result);
     }
+
+    [Fact]
+    public void Delete_ShouldRemoveItemFromList()
+    {
+        //Arrange
+        var service = new ShoppingListService();
+        var additem = service.Add("Eggs", 12, "Free-range");
+        var validId = additem!.Id;
+
+
+        //Act
+        var deleteditem = service.Delete(validId);
+
+        //Assert
+        Assert.True(deleteditem);
+    }
 }
 
