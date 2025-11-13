@@ -1,5 +1,7 @@
-﻿using ShoppingList.Application.Services;
+﻿using Microsoft.AspNetCore.Mvc.DataAnnotations;
+using ShoppingList.Application.Services;
 using ShoppingList.Domain.Models;
+using System.Security.AccessControl;
 using Xunit;
 
 namespace ShoppingList.Tests;
@@ -132,6 +134,42 @@ public class ShoppingListServiceTests
         Assert.NotEqual(item1.Id, item2.Id);  
     }
 
+    //[Fact]
+    //public void Add_ShouldIncrementItemCount()
+    //{
+    //    //Arrange
+    //    var service = new ShoppingListService();
+    //    var expected = service.GetAll();
+
+
+    //    //Act
+    //    var item1 = service.Add("Ost", 2, "Yummy");
+    //    var item2 = service.Add("Ost", 1, "Yummy");
+
+
+    //    //Assert
+    //    Assert.Equal();
+    //}
+
+
+
+    ///GetAll() tests:
+    /// - GetAll_WhenEmpty_ShouldReturnEmptyList
+    /// - GetAll_WithItems_ShouldReturnAllItems
+    /// - GetAll_ShouldNotReturnMoreThanActualItemCount
+    [Fact]
+    public void GetAll_WhenEmpty_ShouldReturnEmptyList()
+    {
+        // Arrange
+        var service = new ShoppingListService();
+
+        
+        // Act
+        var items = service.GetAll();
+
+        // Assert
+        Assert.Empty(items);
+    }
 
 
 }
