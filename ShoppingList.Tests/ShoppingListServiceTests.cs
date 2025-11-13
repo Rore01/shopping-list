@@ -248,5 +248,17 @@ public class ShoppingListServiceTests
         Assert.Equal(2, updatedItem.Quantity);
         Assert.Equal("Gluten-free", updatedItem.Notes);
     }
+
+    [Fact]
+    public void Update_WithInvalidId_ShouldReturnNull()
+    {
+        // Arrange
+        var service = new ShoppingListService();
+        var invalidId = "något invalid";
+        // Act
+        var result = service.Update(invalidId, "Bread", 2, "Gluten-free");
+        // Assert
+        Assert.Null(result);
+    }
 }
 
