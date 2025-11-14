@@ -373,12 +373,11 @@ public class ShoppingListServiceTests
     {
         //Arrange
         var service = new ShoppingListService();
-        var item = service.Add("Socks", 1, "Warm");
-        var founditem = service.Search("Socks");
+
         //Act
         var result = service.Search("Dishwasher");
         //Assert
-        Assert.Equal("Socks", founditem[0].Name);
+        Assert.Equal("Dishwasher tablets", result[0].Name);
     }
 
     [Fact]
