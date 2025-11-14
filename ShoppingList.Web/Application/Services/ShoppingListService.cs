@@ -123,7 +123,7 @@ public class ShoppingListService : IShoppingListService
         {
             return GetAll();
         }
-        for (int i = 0; i < _nextIndex; i++)
+        for (int i = 0; i < _nextIndex -1; i++)
         {
             if (_items[i] != null &&
                 _items[i].Name.Contains(query, StringComparison.OrdinalIgnoreCase) 

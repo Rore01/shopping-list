@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using ShoppingList.Application.Services;
 using ShoppingList.Domain.Models;
 using System.Security.AccessControl;
@@ -372,10 +373,12 @@ public class ShoppingListServiceTests
     {
         //Arrange
         var service = new ShoppingListService();
+        var item = service.Add("Socks", 1, "Warm");
+        var founditem = service.Search("Socks");
         //Act
         var result = service.Search("Dishwasher");
         //Assert
-        Assert.Contains("Dishwasher", result[0].Name);
+        Assert.Equal("Socks", founditem[0].Name);
     }
 
     [Fact]
@@ -386,7 +389,7 @@ public class ShoppingListServiceTests
         //Act
         var result = service.Search("80st/pack - Rea");
         //Assert
-        Assert.Contains("80st/pack - Rea", result[0].Notes);
+        Assert.Equal("80st/pack - Rea", result[0].Notes);
     }
 }
 
