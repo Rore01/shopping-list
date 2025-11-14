@@ -34,23 +34,23 @@ jobs:
         run: dotnet test
 
 
-      #- name: Context Manual
-       # if: (github.event_name == 'workflow_dispatch')
-        #run: |
-        #  echo "Triggered by : ${{ workflow_dispatch }}"
+      - name: Context Manual
+        if: (github.event_name == 'workflow_dispatch')
+        run: |
+          echo "Triggered by : ${{ workflow_dispatch }}"
 
           
-      #- name: Context Push
-       # if: github.event.name == 'push'
-        #run: |
-         # echo "Triggered by : ${{ push }}"
-          #echo "  "
+      - name: Context Push
+        if: github.event_name == 'push'
+        run: |
+          echo "Triggered by : ${{ push }}"
+          echo "  "
 
 
-      #- name: Context Pull Request
-       # if: github.event.name == 'pull_request'
-        #run: |
-         # echo "Triggered by : ${{ github.event.pull_request.main }}"
+      - name: Context Pull Request
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "Triggered by : ${{ github.event.pull_request.main }}"
           #echo "PR times : ${{ github.event.pull_request.number }}"
           #echo "Author is : ${{ github.event.user.login }}"
           #echo "Source branch ${{ github.event.pull_request.head.ref }}"
