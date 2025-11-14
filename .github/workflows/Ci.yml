@@ -1,0 +1,57 @@
+name: Matrix-workflow
+on:
+  workflow_dispatch: 
+
+  push:
+    branches: [ main ]
+  pull_request: 
+    branches: [ main ]
+    
+jobs:
+    test:
+      runs-on: ${{ matrix.os }}
+      strategy:
+        matrix: 
+          os: [ubuntu-latest, windows-latest]
+          version: [9.0, 8.0]
+      steps:
+        - name: checkout
+          uses: actions/checkout@v5
+
+        - name: setup .net
+          uses: actions/setup-dotnet@v5
+          with: ${{ matrix.version }}
+
+        - name: restore
+          run: dotnet restore 
+
+        - name: build
+          run: dotnet build
+
+        - name: test(only when build succeeded)
+          if: succsess()
+          run: dotnet test
+
+        - name: context manual
+          if: github.event.name 'workflow_dispatch'
+          run: |
+            echo "Started by: ${{ github.actor }}"
+            echo "Input note: ${{ github.event.inputs.note }}"
+        - name: context push
+          if: github.event.name 'push'
+          run: |
+            echo "Commit Message: ${{ github.event.head_commit.message }}"
+            echo "Author: ${{ github.event.head_commit.author.name }}"
+            echo "Changed files:"
+            git diff-tree --no-commit-id --name-status -r HEAD
+                
+        - name: context pull_request
+          if: github.event.name 'pull_request'
+          run: |
+              echo "PR Number: ${{ github.event.pull_request.number }}"
+              echo "Author: ${{ github.event.pull_request.user.login }}"
+              echo "Source Branch: ${{ github.event.pull_request.head.ref }}"
+              echo "Target Branch: ${{ github.event.pull_request.base.ref }}"
+            
+        
+    
