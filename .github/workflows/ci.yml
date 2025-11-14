@@ -1,0 +1,57 @@
+name: CI Matrix Workflow
+
+on: 
+  workflow_dispatch:
+
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  test:
+    runs-on: ${{ matrix-os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        version: [9.0,8,0]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup .Net
+        uses: actions/setup-dotnet@v5.0.0
+        with: ${{ matrix-version }}
+
+      - name: restore
+        run: dotnet restore 
+
+      - name: Build
+        run: dotnet build
+
+      - name: test
+        if: success()
+        run: dotnet test
+
+      - name: Context Manual
+        if: github.event.name == 'workflow_dispatch'
+        run: |
+          echo "Triggered by : ${{ workflow_dispatch }}"
+      - name: Context Push
+        if: github.event.name == 'push'
+        run: |
+          echo "Triggered by : ${{ push }}"
+          echo "  "
+
+      - name: Context Pull Request
+        if: github.event.name == 'pull_request'
+        run: |
+          echo "Triggered by : ${{ github.event.pull_request.main }}"
+          echo "PR times : ${{ github.event.pull_request.number }}"
+          echo "Author is : ${{ github.event.user.login }}"
+          echo "Source branch ${{ github.event.pull_request.head.ref }}"
+        
+          
+      
+
+
+  
