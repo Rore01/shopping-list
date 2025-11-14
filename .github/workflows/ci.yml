@@ -7,6 +7,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+
 jobs:
   test:
     runs-on: ${{ matrix.os }}
@@ -14,12 +15,13 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         version: ['9.0','8.0']
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: Setup .Net
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@v4
         with: 
           dotnet-version: ${{ matrix.version }}
 
@@ -33,30 +35,22 @@ jobs:
         if: success()
         run: dotnet test
 
-
       - name: Context Manual
-        if: github.event_name == 'workflow_dispatch'
+        if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
-          echo "Triggered by : ${{ workflow_dispatch }}"
+          echo "Triggered by: ${{ github.event_name }}"
 
-          
       - name: Context Push
-        if: github.event_name == 'push'
+        if: ${{ github.event_name == 'push' }}
         run: |
-          echo "Triggered by : ${{ push }}"
-          echo "  "
-
+          echo "Triggered by: ${{ github.event_name }}"
+          echo "Branch: ${{ github.ref_name }}"
 
       - name: Context Pull Request
-        if: github.event_name == 'pull_request'
+        if: ${{ github.event_name == 'pull_request' }}
         run: |
-          echo "Triggered by : ${{ github.event.pull_request.main }}"
-          #echo "PR times : ${{ github.event.pull_request.number }}"
-          #echo "Author is : ${{ github.event.user.login }}"
-          #echo "Source branch ${{ github.event.pull_request.head.ref }}"
-        
-          
-      
-
-
-  
+          echo "Triggered by: ${{ github.event_name }}"
+          echo "PR number: ${{ github.event.pull_request.number }}"
+          echo "Author is: ${{ github.event.pull_request.user.login }}"
+          echo "Source branch: ${{ github.event.pull_request.head.ref }}"
+          echo "Target branch: ${{ github.event.pull_request.base.ref }}"
