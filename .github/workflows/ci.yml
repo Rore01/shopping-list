@@ -20,7 +20,7 @@ jobs:
 
       - name: Setup .Net
         uses: actions/setup-dotnet@v5.0.0
-        with: ${{ matrix-version }}
+        with: ${{ matrix.version }}
 
       - name: restore
         run: dotnet restore 
